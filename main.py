@@ -1,2 +1,4 @@
-lista=[]
+chamados = []
+id_chamados = []
+
 #lista
