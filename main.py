@@ -1,17 +1,17 @@
 chamados=[]
-id_cliente= 1
+id= 1
 
 def cadastrar_chamados (descricao, prioridade):
-    global id_cliente
+    global id
     chamado ={
-        "id": id_cliente,
+        "id": id,
         "descricao" : descricao,
         "prioridade" : prioridade,
         "finalizado" : False
     }
     chamados.append(chamado)
-    id_clientes += 1
-    print(f"Chamado{chamado[id]} cadastrado com sucesso." )
+    id += 1
+    print(f"Chamado{chamado['id']} cadastrado com sucesso." )
 
 
 def buscar_chamado(id_chamado=None, descricao=None):
@@ -24,6 +24,7 @@ def buscar_chamado(id_chamado=None, descricao=None):
     return encontrados
 
 
+def remover_chamados_finalizados(): # ------------- re-integrado
     global chamados
     chamados = [chamado for chamado in chamados if not chamado['finalizado']]
     print("Chamados finalizados removidos com sucesso.")
@@ -44,7 +45,44 @@ def exibir_estatisticas():
 
 
 def reverter_e_limpar():
-    global chamados, id_cliente
+    global chamados, id
     chamados.clear()  
-    id_cliente= 1  # Reseta o contador de IDs n confunde
+    id = 1  # Reseta did de IDs n confunde
     print("Todos os chamados foram revertidos e a lista foi limpa.")
+
+cadastrar_chamados("Erro ao acessar a aplicação", 3)
+cadastrar_chamados("Bug no sistema",7)
+cadastrar_chamados("sobrecarga de servidor", 1)
+
+# aqui buscar por ID
+resultado = buscar_chamado(id_chamado=1)
+for chamado in resultado:
+    print(chamado)
+
+# aqui busca por descrição - check
+resultado = buscar_chamado(descricao="sistema")
+for chamado in resultado:
+    print(chamado)
+
+    #
+resultado = listar_chamados_por_prioridade()
+for chamado in resultado:
+    print(chamado)
+
+#exibe as estatisticas - check
+exibir_estatisticas()
+
+
+#mostra um chamado como finalizado - check
+chamados[0]['finalizado'] = True
+
+print(chamados)
+
+#remove os chamados finalizados -check
+remover_chamados_finalizados()
+
+print(chamados)
+
+# Limpar lista de chamados -check
+reverter_e_limpar()
+
